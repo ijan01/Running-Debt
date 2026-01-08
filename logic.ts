@@ -20,6 +20,7 @@ export const generateUserReports = (user: User, simDate: string): DailyReport[] 
   let cumulativeRun = 0;
   const simMonth = simDateObj.getMonth();
 
+  // We iterate through every day from Jan 1st to simDate to calculate running totals
   for (let m = 0; m < 12; m++) {
     const daysInMonth = new Date(year, m + 1, 0).getDate();
     for (let d = 1; d <= daysInMonth; d++) {
@@ -27,24 +28,31 @@ export const generateUserReports = (user: User, simDate: string): DailyReport[] 
       const dateStr = `${year}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
       
       const dailyTarget = calculateDailyTarget(m + 1, d);
-      const totalRunOnDay = user.logs.filter(l => l.date === dateStr).reduce((acc, curr) => acc + curr.distance, 0);
+      const totalRunOnDay = user.logs
+        .filter(l => l.date === dateStr)
+        .reduce((acc, curr) => acc + curr.distance, 0);
 
       const joinDateObj = parseLocalDate(user.joinDate || programStartStr);
-      if (currentDate >= joinDateObj && currentDate <= simDateObj) {
-        cumulativeTarget = parseFloat((cumulativeTarget + dailyTarget).toFixed(2));
+      
+      // Calculate totals only up to the simulation date
+      if (currentDate <= simDateObj) {
+        // Target accumulation starts from the user's specific join date
+        if (currentDate >= joinDateObj) {
+          cumulativeTarget = parseFloat((cumulativeTarget + dailyTarget).toFixed(2));
+        }
         cumulativeRun = parseFloat((cumulativeRun + totalRunOnDay).toFixed(2));
       }
 
-      const currentDebt = Math.max(0, parseFloat((cumulativeTarget - cumulativeRun).toFixed(2)));
-
+      // We only store report items for the month being viewed in the UI
       if (m === simMonth) {
+        const debt = Math.max(0, parseFloat((cumulativeTarget - cumulativeRun).toFixed(2)));
         reports.push({
           date: dateStr,
           target: dailyTarget,
           run: totalRunOnDay,
           debtAdded: Math.max(0, dailyTarget - totalRunOnDay),
-          debtCleared: Math.max(0, totalRunOnDay - dailyTarget),
-          cumulativeDebt: currentDebt,
+          debtCleared: 0, // Simplified for capped logic
+          cumulativeDebt: debt,
           cumulativeTarget,
           cumulativeRun
         });
@@ -62,5 +70,8 @@ export const GOGGINS_QUOTES = [
   "WHO'S GONNA CARRY THE BOATS AND THE LOGS?",
   "The couch is calling your name! Get out there!",
   "Don't stop when you're tired. Stop when you're done.",
-  "Most people quit at 40%. You haven't even started."
+  "Most people quit at 40%. You haven't even started.",
+  "I don't stop when I'm tired. I stop when I'm done!",
+  "Stay hard! The surplus you think you have is a lie.",
+  "You're either getting better or you're getting worse. You're never staying the same."
 ];

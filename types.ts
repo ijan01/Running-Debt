@@ -28,6 +28,7 @@ export interface UserStatsSummary {
   name: string;
   totalRun: number;
   currentDebt: number;
+  consistency: string; // e.g., "7/8"
   status: 'CLEAR' | 'DEBT';
   reports: DailyReport[];
 }

@@ -9,10 +9,18 @@ interface ComparisonChartProps {
   simDate?: string;
 }
 
-const COLORS = {
-  'user-ijan': '#dc2626',
-  'user-will': '#1d4ed8',
-  'user-duchess': '#10b981',
+// Dynamic color generator for users
+const getColor = (index: number) => {
+  const baseColors = [
+    '#dc2626', // Red
+    '#2563eb', // Blue
+    '#10b981', // Emerald
+    '#f59e0b', // Amber
+    '#8b5cf6', // Violet
+    '#ec4899', // Pink
+    '#06b6d4', // Cyan
+  ];
+  return baseColors[index % baseColors.length];
 };
 
 const ComparisonChart: React.FC<ComparisonChartProps> = ({ summaries, isTeamView, simDate }) => {
@@ -39,7 +47,7 @@ const ComparisonChart: React.FC<ComparisonChartProps> = ({ summaries, isTeamView
     <div className="bg-white p-4 md:p-8">
       <h2 className="text-xs md:text-base font-black text-gray-900 uppercase tracking-widest mb-6 flex items-center gap-2">
         <span className={`w-1.5 h-6 rounded-full ${isTeamView ? 'bg-black' : 'bg-red-600'}`}></span>
-        {isTeamView ? 'Debt Matrix' : 'Trajectory'}
+        {isTeamView ? 'Squad Trajectory' : 'Personal Debt Matrix'}
       </h2>
       <div className="h-64 md:h-96 min-h-[250px] w-full">
         <ResponsiveContainer width="100%" height="100%">
@@ -49,10 +57,11 @@ const ComparisonChart: React.FC<ComparisonChartProps> = ({ summaries, isTeamView
             <YAxis stroke="#d1d5db" fontSize={9} fontWeight={800} axisLine={false} tickLine={false} />
             <Tooltip contentStyle={{ border: 'none', borderRadius: '16px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', fontSize: '10px' }} />
             <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: '9px', textTransform: 'uppercase', fontWeight: 800, paddingTop: '20px' }} />
-            {simDayFormatted && <ReferenceLine x={simDayFormatted} stroke="#dc2626" strokeWidth={2} strokeDasharray="4 4" />}
-            <Line type="stepAfter" dataKey="math" stroke="#e5e7eb" strokeWidth={2} dot={false} name="Target" strokeDasharray="4 4" />
-            {summaries.map(summary => (
-              <Line key={summary.id} type="monotone" dataKey={summary.name} stroke={(COLORS as any)[summary.id] || '#111'} strokeWidth={3} dot={false} name={summary.name} />
+            {/* Fix: Removed unsupported 'textTransform' property from ReferenceLine label object and used uppercase in 'value' */}
+            {simDayFormatted && <ReferenceLine x={simDayFormatted} stroke="#dc2626" strokeWidth={2} strokeDasharray="4 4" label={{ position: 'top', value: 'TODAY', fontSize: 8, fontWeight: 900, fill: '#dc2626' }} />}
+            <Line type="stepAfter" dataKey="math" stroke="#e5e7eb" strokeWidth={2} dot={false} name="Required Distance" strokeDasharray="4 4" />
+            {summaries.map((summary, idx) => (
+              <Line key={summary.id} type="monotone" dataKey={summary.name} stroke={getColor(idx)} strokeWidth={3} dot={false} name={summary.name} animationDuration={1000} />
             ))}
           </LineChart>
         </ResponsiveContainer>
