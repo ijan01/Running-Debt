@@ -71,8 +71,8 @@ const AggressiveHeader: React.FC<AggressiveHeaderProps> = ({ simDate, onSimDateC
   return (
     <header className="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 py-4 md:px-8 md:py-6 flex flex-col gap-4">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="flex flex-col items-center md:items-start text-center md:text-left">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="flex flex-col items-center md:items-start text-center md:text-left shrink-0">
             <h1 className="text-xl sm:text-2xl md:text-4xl font-extrabold tracking-tight text-gray-900 leading-tight">
               Compounding <span className="text-red-600 italic">Running</span> Debt
             </h1>
@@ -81,10 +81,10 @@ const AggressiveHeader: React.FC<AggressiveHeaderProps> = ({ simDate, onSimDateC
             </p>
           </div>
 
-          <div className="max-w-md w-full md:w-64 lg:w-80">
-            <div className="bg-gray-50 p-3 rounded-xl border border-gray-100 italic relative overflow-hidden shadow-sm hidden sm:block">
-              <div className="absolute top-0 left-0 w-1 h-full bg-red-600 opacity-40"></div>
-              <p className="text-[11px] md:text-xs font-semibold text-gray-700 leading-snug pl-2 truncate">
+          <div className="w-full md:max-w-md lg:max-w-2xl">
+            <div className="bg-gray-50 p-3 md:p-5 lg:p-6 rounded-2xl border border-gray-100 italic relative overflow-hidden shadow-sm">
+              <div className="absolute top-0 left-0 w-1.5 h-full bg-red-600 opacity-60"></div>
+              <p className="text-[10px] sm:text-xs md:text-base lg:text-2xl font-black text-gray-800 leading-tight pl-3 md:pl-5">
                 "{GOGGINS_QUOTES[quoteIdx]}"
               </p>
             </div>
