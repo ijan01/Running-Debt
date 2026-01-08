@@ -9,8 +9,5 @@ if (!rootElement) {
 }
 
 const root = createRoot(rootElement);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+// Removed StrictMode as it causes ResizeObserver/ResponsiveContainer issues in Recharts + React 19
+root.render(<App />);

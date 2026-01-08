@@ -41,7 +41,7 @@ const ComparisonChart: React.FC<ComparisonChartProps> = ({ summaries, isTeamView
         <span className={`w-1.5 h-6 rounded-full ${isTeamView ? 'bg-black' : 'bg-red-600'}`}></span>
         {isTeamView ? 'Debt Matrix' : 'Trajectory'}
       </h2>
-      <div className="h-64 md:h-96 w-full">
+      <div className="h-64 md:h-96 min-h-[250px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={chartData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} />

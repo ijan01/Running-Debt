@@ -183,7 +183,7 @@ const App: React.FC = () => {
 
           <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
             <h3 className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-6">Yearly Protocol Scaling</h3>
-            <div className="h-40 md:h-48 w-full">
+            <div className="h-40 md:h-48 min-h-[160px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={MONTHLY_TARGETS}>
                   <XAxis dataKey="name" axisLine={false} tickLine={false} fontSize={9} fontWeight={800} />
