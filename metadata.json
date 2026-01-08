@@ -1,0 +1,5 @@
+{
+  "name": "Compounding Running Debt",
+  "description": "A brutal, Goggins-style running tracker where your daily distance target increases every day. No banking miles, only clearing debt. Stay hard.",
+  "requestFramePermissions": []
+}
