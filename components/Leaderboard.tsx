@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { UserStatsSummary } from '../types';
+import { UserStatsSummary } from '../types.ts';
 
 interface LeaderboardProps {
   users: UserStatsSummary[];
@@ -23,9 +23,9 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ users, simDate, onAddUserClic
         
         <button 
           onClick={onAddUserClick}
-          className="group flex items-center gap-2 px-5 py-2.5 bg-red-600 text-white rounded-2xl hover:bg-red-700 transition-all shadow-lg shadow-red-100 active:scale-95"
+          className="group flex items-center gap-2 px-5 py-2.5 bg-red-600 text-white rounded-2xl hover:bg-red-700 transition-all shadow-lg"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 group-hover:rotate-90 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 4v16m8-8H4" />
           </svg>
           <span className="text-[10px] font-black uppercase tracking-widest">New Operative</span>
@@ -45,12 +45,8 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ users, simDate, onAddUserClic
           <tbody className="divide-y divide-gray-50">
             {sorted.map((u, i) => {
               const inDebt = u.currentDebt > 0.05;
-              
               return (
-                <tr 
-                  key={u.id} 
-                  className={`transition-all duration-300 ${inDebt ? 'bg-red-50/30' : 'bg-white hover:bg-gray-50/50'}`}
-                >
+                <tr key={u.id} className={`transition-all duration-300 ${inDebt ? 'bg-red-50/30' : 'bg-white hover:bg-gray-50/50'}`}>
                   <td className="p-4 text-center text-base md:text-lg font-black italic text-gray-300">#{i + 1}</td>
                   <td className="p-4">
                     <div className="flex flex-col">
@@ -64,14 +60,14 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ users, simDate, onAddUserClic
                   </td>
                   <td className="p-4 text-right">
                     {inDebt ? (
-                      <div className="flex flex-col items-end animate-pulse">
-                        <span className="bg-red-600 text-white px-2 md:px-3 py-1 text-[8px] md:text-[9px] font-black rounded-full shadow-lg mb-1 tracking-widest uppercase">Debt Found</span>
-                        <span className="text-[10px] md:text-xs text-red-600 font-black tracking-tighter">-{u.currentDebt.toFixed(1)} KM</span>
+                      <div className="flex flex-col items-end">
+                        <span className="bg-red-600 text-white px-2 md:px-3 py-1 text-[8px] md:text-[9px] font-black rounded-full shadow-lg mb-1 uppercase tracking-widest">Debt Found</span>
+                        <span className="text-[10px] md:text-xs text-red-600 font-black">-{u.currentDebt.toFixed(1)} KM</span>
                       </div>
                     ) : (
                       <div className="flex flex-col items-end">
-                        <span className="bg-emerald-600 text-white px-2 md:px-3 py-1 text-[8px] md:text-[9px] font-black rounded-full shadow-lg mb-1 tracking-widest uppercase">STAY HARD</span>
-                        <span className="text-[9px] md:text-[10px] text-emerald-600 font-black uppercase tracking-widest">Clear</span>
+                        <span className="bg-emerald-600 text-white px-2 md:px-3 py-1 text-[8px] md:text-[9px] font-black rounded-full shadow-lg mb-1 uppercase tracking-widest">STAY HARD</span>
+                        <span className="text-[9px] md:text-[10px] text-emerald-600 font-black uppercase">Clear</span>
                       </div>
                     )}
                   </td>
