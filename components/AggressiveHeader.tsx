@@ -81,10 +81,12 @@ const AggressiveHeader: React.FC<AggressiveHeaderProps> = ({ simDate, onSimDateC
             </p>
           </div>
 
-          <div className="w-full md:max-w-md lg:max-w-2xl">
-            <div className="bg-gray-50 p-3 md:p-5 lg:p-6 rounded-2xl border border-gray-100 italic relative overflow-hidden shadow-sm">
+          <div className="w-full md:max-w-md lg:max-w-xl">
+            {/* Fixed height container (h-24) to ensure layout stability and centered text */}
+            <div className="bg-gray-50 h-24 p-4 rounded-2xl border border-gray-100 italic relative overflow-hidden shadow-sm flex items-center">
               <div className="absolute top-0 left-0 w-1.5 h-full bg-red-600 opacity-60"></div>
-              <p className="text-[10px] sm:text-xs md:text-base lg:text-2xl font-black text-gray-800 leading-tight pl-3 md:pl-5">
+              {/* Fixed text size (text-lg) that fits within the h-24 container across all devices */}
+              <p className="text-lg font-black text-gray-800 leading-tight pl-5 line-clamp-3">
                 "{GOGGINS_QUOTES[quoteIdx]}"
               </p>
             </div>

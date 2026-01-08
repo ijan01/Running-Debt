@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { GOGGINS_QUOTES } from '../logic';
 
 interface SufferMeterProps {
-  highestDebtor?: { name: string; debt: number };
+  // Fix: renamed 'debt' to 'currentDebt' to correctly match the property name in UserStatsSummary
+  highestDebtor?: { name: string; currentDebt: number };
   totalDebt: number;
 }
 
@@ -13,7 +14,8 @@ const Motivation: React.FC<SufferMeterProps> = ({ highestDebtor, totalDebt }) =>
   useEffect(() => {
     const interval = setInterval(() => {
       const baseQuote = GOGGINS_QUOTES[Math.floor(Math.random() * GOGGINS_QUOTES.length)];
-      if (highestDebtor && highestDebtor.debt > 0.5) {
+      // Fix: accessed 'currentDebt' instead of 'debt'
+      if (highestDebtor && highestDebtor.currentDebt > 0.5) {
         setQuote(`${highestDebtor.name}, ${baseQuote}`);
       } else {
         setQuote(baseQuote);
